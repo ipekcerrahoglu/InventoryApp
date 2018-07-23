@@ -44,7 +44,7 @@
             <EditText
                 android:id="@+id/edit_item_quantity"
                 android:hint="@string/hint_item_quantity1"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 style="@style/EditorFieldStyle" />
 
             <!-- Breed field -->
@@ -58,7 +58,7 @@
             <EditText
                 android:id="@+id/edit_item_supplier_phone"
                 android:hint="@string/hint_item_supplier_phone"
-                android:inputType="number"
+                android:inputType="phone"
                 style="@style/EditorFieldStyle" />
         </LinearLayout>
     </LinearLayout>
