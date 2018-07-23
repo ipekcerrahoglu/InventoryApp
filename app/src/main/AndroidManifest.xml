@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".EditorActivity"/>
+        <activity android:name=".EditorActivity"
+            android:label="@string/add_item"/>
 
     </application>
 
