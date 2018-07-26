@@ -20,6 +20,11 @@
         <activity android:name=".EditorActivity"
             android:label="@string/add_item"/>
 
+        <provider
+            android:name=".data.Provider"
+            android:authorities="com.example.lenovo.inventoryappstage1"
+            android:exported="false" />
+
     </application>
 
 </manifest>
