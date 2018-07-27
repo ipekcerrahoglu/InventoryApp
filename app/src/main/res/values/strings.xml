@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">InventoryApp, Stage1</string>
     <string name="add_item">Add item</string>
+    <string name="product_detail">Product Detail</string>
 
     <string name="action_save">Save</string>
     <string name="action_delete">Delete</string>
@@ -71,5 +72,10 @@
 
     <string name="Amazon">amazon</string>
     <string name="EBAY">E-bay</string>
+
+
+    <string name="increase_quantity">Quantity increased by 1</string>
+    <string name="decrease_quantity">Quantity decreased by 1</string>
+    <string name="empty_stock">Empty Stock</string>
 
 </resources>

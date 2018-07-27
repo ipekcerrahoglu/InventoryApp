@@ -18,7 +18,20 @@
         </activity>
 
         <activity android:name=".EditorActivity"
-            android:label="@string/add_item"/>
+            android:label="@string/add_item">
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+
+        </activity>
+
+        <activity android:name=".ProductActivity"
+            android:label="@string/product_detail">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+        </activity>
 
         <provider
             android:name=".data.Provider"

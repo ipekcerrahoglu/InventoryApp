@@ -1,5 +1,6 @@
 package com.example.lenovo.inventoryappstage1;
 
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.lenovo.inventoryappstage1.data.Contract.ProductEntry;
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     /** Identifier for the products data loader */
-    private static final int PET_LOADER = 0;
+    private static final int PRODUCT_LOADER = 0;
 
     /** Adapter for the ListView */
     ProductCursorAdapter mCursorAdapter;
@@ -48,23 +50,23 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         // Find the ListView which will be populated with the pet data
-        ListView petListView = (ListView) findViewById(R.id.list);
+        ListView productListView = (ListView) findViewById(R.id.list);
 
         // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
         View emptyView = findViewById(R.id.empty_view);
-        petListView.setEmptyView(emptyView);
+        productListView.setEmptyView(emptyView);
 
         // Setup an Adapter to create a list item for each row of pet data in the Cursor.
         // There is no pet data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new ProductCursorAdapter(this, null);
-        petListView.setAdapter(mCursorAdapter);
+        productListView.setAdapter(mCursorAdapter);
 
         // Setup the item click listener
-        petListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // Create new intent to go to {@link EditorActivity}
-                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                Intent intent = new Intent(MainActivity.this, ProductActivity.class);
 
                 // Form the content URI that represents the specific pet that was clicked on,
                 // by appending the "id" (passed as input to this method) onto the
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         // Kick off the loader
-        getLoaderManager().initLoader(PET_LOADER, null, this);
+        getLoaderManager().initLoader(PRODUCT_LOADER, null, this);
     }
 
     /**
@@ -136,6 +138,22 @@ public class MainActivity extends AppCompatActivity implements
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void productSaleCount(int productID, int productQuantity) {
+        productQuantity = productQuantity - 1;
+        if (productQuantity >= 0) {
+            ContentValues values = new ContentValues();
+            values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, productQuantity);
+            Uri updateUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, productID);
+            int rowsAffected = getContentResolver().update(updateUri, values, null, null);
+            Toast.makeText(this, "Quantity was change", Toast.LENGTH_SHORT).show();
+
+            Log.d("Log msg", "rowsAffected " + rowsAffected + " - productID " + productID + " - quantity " + productQuantity + " , decreaseCount has been called.");
+        } else {
+            Toast.makeText(this, "Product was finish :( , buy another Product", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
