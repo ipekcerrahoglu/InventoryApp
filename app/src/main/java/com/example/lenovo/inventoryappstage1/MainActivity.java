@@ -1,6 +1,5 @@
 package com.example.lenovo.inventoryappstage1;
 
-import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -146,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements
             values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, productQuantity);
             Uri updateUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, productID);
             int rowsAffected = getContentResolver().update(updateUri, values, null, null);
-            Toast.makeText(this, "Quantity was change", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "1 Sale", Toast.LENGTH_SHORT).show();
 
             Log.d("Log msg", "rowsAffected " + rowsAffected + " - productID " + productID + " - quantity " + productQuantity + " , decreaseCount has been called.");
         } else {

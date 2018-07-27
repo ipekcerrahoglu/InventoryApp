@@ -1,6 +1,6 @@
 package com.example.lenovo.inventoryappstage1;
 
-import android.app.Activity;
+
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
