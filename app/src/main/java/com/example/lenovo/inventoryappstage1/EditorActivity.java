@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.example.lenovo.inventoryappstage1.data.Contract.ProductEntry;
 
+import static com.example.lenovo.inventoryappstage1.R.string.editor_insert_product_failed;
+
 /**
  * Allows user to create a new pet or edit an existing one.
  */
@@ -160,11 +162,48 @@ public class EditorActivity extends AppCompatActivity implements
         // and check if all the fields in the editor are blank
         if (mCurrentProductUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
-                TextUtils.isEmpty(quantityString) && mSupplier == ProductEntry.SUPPLIER_AMAZON) {
+                TextUtils.isEmpty(quantityString) && mSupplier == ProductEntry.SUPPLIER_AMAZON && TextUtils.isEmpty(phoneString)) {
             // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
+
+            Toast.makeText(this,"Product information must be provided",Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (mCurrentProductUri == null && TextUtils.isEmpty(nameString) ) {
+            // Since no fields were modified, we can return early without creating a new product.
+            // No need to create ContentValues and no need to do any ContentProvider operations.
+
+            Toast.makeText(this,"Product name must be provided",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (mCurrentProductUri == null && TextUtils.isEmpty(priceString) ) {
+            // Since no fields were modified, we can return early without creating a new product.
+            // No need to create ContentValues and no need to do any ContentProvider operations.
+
+            Toast.makeText(this,"Product price must be provided",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (mCurrentProductUri == null && TextUtils.isEmpty(quantityString) ) {
+            // Since no fields were modified, we can return early without creating a new product.
+            // No need to create ContentValues and no need to do any ContentProvider operations.
+
+            Toast.makeText(this,"Product quantity must be provided",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (mCurrentProductUri == null && TextUtils.isEmpty(phoneString) ) {
+            // Since no fields were modified, we can return early without creating a new product.
+            // No need to create ContentValues and no need to do any ContentProvider operations.
+
+            Toast.makeText(this,"Supplier phone number must be provided",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+
 
         // Create a ContentValues object where column names are the keys,
         // and pet attributes from the editor are the values.
@@ -191,7 +230,7 @@ public class EditorActivity extends AppCompatActivity implements
             // Show a toast message depending on whether or not the insertion was successful.
             if (newUri == null) {
                 // If the new content URI is null, then there was an error with insertion.
-                Toast.makeText(this, getString(R.string.editor_insert_product_failed),
+                Toast.makeText(this, getString(editor_insert_product_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the insertion was successful and we can display a toast.
