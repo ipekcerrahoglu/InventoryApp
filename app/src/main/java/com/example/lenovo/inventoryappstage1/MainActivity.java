@@ -27,10 +27,14 @@ import com.example.lenovo.inventoryappstage1.data.Contract.ProductEntry;
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the products data loader */
+    /**
+     * Identifier for the products data loader
+     */
     private static final int PRODUCT_LOADER = 0;
 
-    /** Adapter for the ListView */
+    /**
+     * Adapter for the ListView
+     */
     ProductCursorAdapter mCursorAdapter;
 
     @Override
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements
         values.put(ProductEntry.COLUMN_PRODUCT_PRICE, "15");
         values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, ProductEntry.SUPPLIER_AMAZON);
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 10);
-        values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER,"+90 578 676 7839");
+        values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, "+90 578 676 7839");
 
         // Insert a new row for Toto into the provider using the ContentResolver.
         // Use the {@link PetEntry#CONTENT_URI} to indicate that we want to insert

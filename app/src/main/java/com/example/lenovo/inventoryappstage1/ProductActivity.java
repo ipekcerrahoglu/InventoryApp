@@ -56,7 +56,6 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
         Log.d("message", "onCreate ViewActivity");
 
 
-
     }
 
     @Override
@@ -130,7 +129,6 @@ public class ProductActivity extends AppCompatActivity implements LoaderManager.
                     increaseCount(idColumnIndex, currentQuantity);
                 }
             });
-
 
 
             Button phoneButton = findViewById(R.id.phone_button);

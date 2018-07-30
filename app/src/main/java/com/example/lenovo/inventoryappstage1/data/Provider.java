@@ -17,13 +17,19 @@ import com.example.lenovo.inventoryappstage1.data.Contract.ProductEntry;
  */
 public class Provider extends ContentProvider {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     public static final String LOG_TAG = Provider.class.getSimpleName();
 
-    /** URI matcher code for the content URI for the productss table */
+    /**
+     * URI matcher code for the content URI for the productss table
+     */
     private static final int PRODUCTS = 100;
 
-    /** URI matcher code for the content URI for a single pet in the products table */
+    /**
+     * URI matcher code for the content URI for a single pet in the products table
+     */
     private static final int PRODUCTS_ID = 101;
 
     /**
@@ -54,7 +60,9 @@ public class Provider extends ContentProvider {
         sUriMatcher.addURI(Contract.CONTENT_AUTHORITY, Contract.PATH_PRODUCTS + "/#", PRODUCTS_ID);
     }
 
-    /** Database helper object */
+    /**
+     * Database helper object
+     */
     private DbHelper mDbHelper;
 
     @Override
@@ -92,7 +100,7 @@ public class Provider extends ContentProvider {
                 // arguments that will fill in the "?". Since we have 1 question mark in the
                 // selection, we have 1 String in the selection arguments' String array.
                 selection = ProductEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
 
                 // This will perform a query on the pets table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
@@ -143,11 +151,11 @@ public class Provider extends ContentProvider {
         // If the price is provided, check that it's greater than or equal to 0
         Integer price = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
         if (price == null || price < 0) {
-             Toast.makeText(getContext(), "Product requires a valid price", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Product requires a valid price", Toast.LENGTH_SHORT).show();
         }
 
         Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-        if (quantity == null ) {
+        if (quantity == null) {
             Toast.makeText(getContext(), "Product requires a valid quantity", Toast.LENGTH_SHORT).show();
         }
 
@@ -188,7 +196,7 @@ public class Provider extends ContentProvider {
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
                 selection = ProductEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateProduct(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
@@ -207,7 +215,7 @@ public class Provider extends ContentProvider {
         if (values.containsKey(ProductEntry.COLUMN_PRODUCT_NAME)) {
             String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
             if (name == null) {
-                Toast.makeText(getContext(),"Product requires valid name",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Product requires valid name", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -215,7 +223,7 @@ public class Provider extends ContentProvider {
         if (values.containsKey(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME)) {
             Integer supplier = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
             if (supplier == null || !ProductEntry.isValidSupplier(supplier)) {
-                Toast.makeText(getContext(),"Product requires valid supplier name",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Product requires valid supplier name", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -224,7 +232,7 @@ public class Provider extends ContentProvider {
             // Check that the price is greater than or equal to 0 kg
             Integer price = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
             if (price == null || price < 0) {
-                Toast.makeText(getContext(),"Product requires valid price",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Product requires valid price", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -232,8 +240,8 @@ public class Provider extends ContentProvider {
         if (values.containsKey(ProductEntry.COLUMN_PRODUCT_QUANTITY)) {
             // Check that the price is greater than or equal to 0 kg
             Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-            if (quantity == null ) {
-                Toast.makeText(getContext(),"Product requires valid quantity",Toast.LENGTH_SHORT).show();
+            if (quantity == null) {
+                Toast.makeText(getContext(), "Product requires valid quantity", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -241,10 +249,9 @@ public class Provider extends ContentProvider {
             // Check that the price is greater than or equal to 0 kg
             Integer phone = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER);
             if (phone == null || phone < 0) {
-                Toast.makeText(getContext(),"Product requires valid phone number",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Product requires valid phone number", Toast.LENGTH_SHORT).show();
             }
         }
-
 
 
         // If there are no values to update, then don't try to update the database
@@ -286,7 +293,7 @@ public class Provider extends ContentProvider {
             case PRODUCTS_ID:
                 // Delete a single row given by the ID in the URI
                 selection = ProductEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = database.delete(ProductEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:

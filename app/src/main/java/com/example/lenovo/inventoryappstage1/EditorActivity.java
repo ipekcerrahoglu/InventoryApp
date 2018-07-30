@@ -25,18 +25,20 @@ import android.widget.Toast;
 
 import com.example.lenovo.inventoryappstage1.data.Contract.ProductEntry;
 
-import static com.example.lenovo.inventoryappstage1.R.string.editor_insert_product_failed;
-
 /**
  * Allows user to create a new pet or edit an existing one.
  */
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the pet data loader */
+    /**
+     * Identifier for the pet data loader
+     */
     private static final int EXISTING_PRODUCT_LOADER = 0;
 
-    /** Content URI for the existing pet (null if it's a new pet) */
+    /**
+     * Content URI for the existing pet (null if it's a new pet)
+     */
     private Uri mCurrentProductUri;
 
     private EditText mNameEditText;
@@ -47,7 +49,9 @@ public class EditorActivity extends AppCompatActivity implements
 
     private int mSupplier = ProductEntry.SUPPLIER_AMAZON;
 
-    /** Boolean flag that keeps track of whether the product has been edited (true) or not (false) */
+    /**
+     * Boolean flag that keeps track of whether the product has been edited (true) or not (false)
+     */
     private boolean mProductHasChanged = false;
 
     /**
@@ -91,11 +95,11 @@ public class EditorActivity extends AppCompatActivity implements
         }
 
         // Find all relevant views that we will need to read user input from
-        mNameEditText =  findViewById(R.id.edit_item_name);
-        mPriceEditText =  findViewById(R.id.edit_item_price);
+        mNameEditText = findViewById(R.id.edit_item_name);
+        mPriceEditText = findViewById(R.id.edit_item_price);
         mQuantityEditText = findViewById(R.id.edit_item_quantity);
-        mSupplierSpinner =  findViewById(R.id.spinner_supplier);
-        mPhoneEditText =  findViewById(R.id.edit_item_supplier_phone);
+        mSupplierSpinner = findViewById(R.id.spinner_supplier);
+        mPhoneEditText = findViewById(R.id.edit_item_supplier_phone);
 
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
@@ -150,6 +154,8 @@ public class EditorActivity extends AppCompatActivity implements
     /**
      * Get user input from editor and save product into database.
      */
+
+
     private void saveProduct() {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
@@ -160,49 +166,46 @@ public class EditorActivity extends AppCompatActivity implements
 
         // Check if this is supposed to be a new product
         // and check if all the fields in the editor are blank
-        if (mCurrentProductUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
+        if (TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
                 TextUtils.isEmpty(quantityString) && mSupplier == ProductEntry.SUPPLIER_AMAZON && TextUtils.isEmpty(phoneString)) {
             // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
 
-            Toast.makeText(this,"Product information must be provided",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Product information must be provided", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (mCurrentProductUri == null && TextUtils.isEmpty(nameString) ) {
+        if ( TextUtils.isEmpty(nameString)) {
             // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
 
-            Toast.makeText(this,"Product name must be provided",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Product name must be provided", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (mCurrentProductUri == null && TextUtils.isEmpty(priceString) ) {
+        if ( TextUtils.isEmpty(priceString)) {
             // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
 
-            Toast.makeText(this,"Product price must be provided",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Product price must be provided", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (mCurrentProductUri == null && TextUtils.isEmpty(quantityString) ) {
+        if ( TextUtils.isEmpty(quantityString)) {
             // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
 
-            Toast.makeText(this,"Product quantity must be provided",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Product quantity must be provided", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (mCurrentProductUri == null && TextUtils.isEmpty(phoneString) ) {
+        if ( TextUtils.isEmpty(phoneString)) {
             // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
 
-            Toast.makeText(this,"Supplier phone number must be provided",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Supplier phone number must be provided", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
 
 
         // Create a ContentValues object where column names are the keys,
@@ -213,7 +216,7 @@ public class EditorActivity extends AppCompatActivity implements
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantityString);
         values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, mSupplier);
         values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, phoneString);
-        // If the weight is not provided by the user, don't try to parse the string into an
+        // If the quantity is not provided by the user, don't try to parse the string into an
         // integer value. Use 0 by default.
         int quantity = 0;
         if (!TextUtils.isEmpty(quantityString)) {
@@ -230,7 +233,7 @@ public class EditorActivity extends AppCompatActivity implements
             // Show a toast message depending on whether or not the insertion was successful.
             if (newUri == null) {
                 // If the new content URI is null, then there was an error with insertion.
-                Toast.makeText(this, getString(editor_insert_product_failed),
+                Toast.makeText(this, getString(R.string.editor_insert_product_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the insertion was successful and we can display a toast.
@@ -255,6 +258,8 @@ public class EditorActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
         }
+
+        finish();
     }
 
     @Override
@@ -288,9 +293,8 @@ public class EditorActivity extends AppCompatActivity implements
             case R.id.action_save:
                 // Save pet to database
                 saveProduct();
-                // Exit activity
-                finish();
                 return true;
+
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
                 // Pop up confirmation dialog for deletion
@@ -360,7 +364,7 @@ public class EditorActivity extends AppCompatActivity implements
                 ProductEntry.COLUMN_PRODUCT_PRICE,
                 ProductEntry.COLUMN_PRODUCT_QUANTITY,
                 ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME,
-                ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER };
+                ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -468,7 +472,7 @@ public class EditorActivity extends AppCompatActivity implements
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Delete" button, so delete the pet.
-                deletePet();
+                deleteProduct();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -489,7 +493,7 @@ public class EditorActivity extends AppCompatActivity implements
     /**
      * Perform the deletion of the pet in the database.
      */
-    private void deletePet() {
+    private void deleteProduct() {
         // Only perform the delete if this is an existing pet.
         if (mCurrentProductUri != null) {
             // Call the ContentResolver to delete the pet at the given content URI.

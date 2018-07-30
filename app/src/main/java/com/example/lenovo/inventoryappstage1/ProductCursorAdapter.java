@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lenovo.inventoryappstage1.data.Contract.ProductEntry;
 
@@ -87,9 +88,7 @@ public class ProductCursorAdapter extends CursorAdapter {
 
         // If the pet breed is empty string or null, then use some default text
         // that says "Unknown breed", so the TextView isn't blank.
-        if (TextUtils.isEmpty(productName)) {
-            productName = context.getString(R.string.unknown_name);
-        }
+
 
         productSaleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +112,9 @@ public class ProductCursorAdapter extends CursorAdapter {
         nameTextView.setText(productName);
         priceTextView.setText(productPrice);
         quantityTextView.setText(productQuantity);
-        if (productSupplier.equals("0")){
+        if (productSupplier.equals("0")) {
             supplierNameTextView.setText(R.string.Amazon);
-        } else if (productSupplier.equals("1")){
+        } else if (productSupplier.equals("1")) {
             supplierNameTextView.setText(R.string.EBAY);
         }
 
